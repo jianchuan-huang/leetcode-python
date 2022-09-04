@@ -1,0 +1,25 @@
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+
+        def findKth(mynums1, mynums2, k):
+            if len(mynums1) > len(mynums2):
+                mynums1, mynums2 = mynums2, mynums1
+            k = int(k)
+            if len(mynums1) == 0:
+                return mynums2[k-1]
+            if k == 1:
+                return min(mynums1[0], mynums2[0])
+            tmpk = min(k//2, len(mynums1))
+            tmpk = int(tmpk)
+            if mynums1[tmpk-1] < mynums2[tmpk-1]:
+                return findKth(mynums1[tmpk:], mynums2, k-tmpk)
+            else:
+                return findKth(mynums1, mynums2[tmpk:], k-tmpk)
+            
+        if (len(nums1)+len(nums2)) % 2 == 0:
+            k1 = (len(nums1)+len(nums2))/2
+            k2 = (len(nums1)+len(nums2))/2 + 1
+            return (findKth(nums1, nums2, k1)+findKth(nums1, nums2, k2))/2
+        else:
+            k1 = (len(nums1)+len(nums2)+1)/2
+            return findKth(nums1, nums2, k1)
