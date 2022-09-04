@@ -1,3 +1,4 @@
+# O(log(m+n))
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
 
@@ -23,3 +24,29 @@ class Solution:
         else:
             k1 = (len(nums1)+len(nums2)+1)/2
             return findKth(nums1, nums2, k1)
+
+# O(m+n)
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        n = len(nums1)
+        m = len(nums2)
+        before = 0
+        ordered = []
+        i = 0
+        j = 0
+        while i < n and j < m:
+            if nums1[i] < nums2[j]:
+                ordered.append(nums1[i])
+                i += 1
+            else:
+                ordered.append(nums2[j])
+                j += 1
+        if i < n:
+            ordered += nums1[i:]
+        else:
+            ordered += nums2[j:]
+        if (n+m) % 2 == 0:
+            return (ordered[int((n+m)/2 - 1)]+ordered[int((n+m)/2)])/2
+        else:
+            return ordered[int(((n+m)-1)/2)]
+
