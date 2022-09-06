@@ -1,0 +1,13 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = [[""], ["()"]]
+        for i in range(2, n+1):
+            tmp = []
+            for j in range(i):
+                tmp_in = res[j]
+                tmp_out = res[i-j-1]
+                for ele1 in tmp_in:
+                    for ele2 in tmp_out:
+                        tmp.append("({0}){1}".format(ele1, ele2))
+            res.append(tmp)
+        return res[n]
