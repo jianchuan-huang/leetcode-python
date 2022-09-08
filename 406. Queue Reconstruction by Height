@@ -1,0 +1,11 @@
+class Solution:
+    def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+        n = len(people)
+        res = []
+        people = sorted(people, key = lambda x: (-x[0], x[1]))
+        for ele in people:
+            if ele[1] >= len(res):
+                res.append(ele)
+            else:
+                res.insert(ele[1], ele)
+        return res
