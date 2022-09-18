@@ -1,3 +1,21 @@
+# bfs
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        n = len(isConnected)
+        visited = set()
+        res = 0
+        for i in range(n):
+            if i not in visited:
+                Q = collections.deque([i])
+                while Q:
+                    j = Q.popleft()
+                    visited.add(j)
+                    for k in range(n):
+                        if isConnected[j][k] == 1 and k not in visited:
+                            Q.append(k)
+                res += 1
+        return res
+
 # dfs
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
